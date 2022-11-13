@@ -37,7 +37,7 @@ const minutes = futureDate.getMinutes();
 
 // //Month
 // let month = futureDate.getMonth();
-month = months[futureDate.getMonth()];
+let month = months[futureDate.getMonth()];
 const date = futureDate.getDate();
 
 const weekday = weekdays[futureDate.getDay()];
@@ -50,7 +50,7 @@ const futureTime = futureDate.getTime();
 function getRemainingTime() {
     const today = new Date().getTime();
     const t = futureTime - today;
-    console.log(t);
+    
     // 1s = 1000ms
     // 1min = 60s
     // 1hr = 60mins
@@ -68,7 +68,22 @@ function getRemainingTime() {
     let hours = Math.floor((t % oneDay) / oneHour);
     let minutes = Math.floor((t % oneHour) / oneMinute);
     let seconds = Math.floor((t % oneMinute) / 1000);
-    console.log(seconds);
+    
+    // set values array;
+    const values = [days, hours, minutes, seconds];
+
+    function format(item) {
+        if (item < 10) {
+            return (item = `0${item}`)
+        }
+        else return item;
+    }
+
+    items.forEach(function(item, index) {
+        item.innerHTML = format(values[index]);
+    });
 }
 
+// countdown
+let countdown = setInterval(getRemainingTime, 1000);
 getRemainingTime();
